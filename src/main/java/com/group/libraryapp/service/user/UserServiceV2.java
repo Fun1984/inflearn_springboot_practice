@@ -38,4 +38,24 @@ public class UserServiceV2 {
         user.updateName(request.getName()); //객체를 업데이트하고
         userRepository.save(user); //세이브 메소드 호출 -> 자동으로 update sql이 날라가게 됨.
     }
+
+    public void deleteUser(String name) {
+
+        // SELECT * FROM user where name = ?
+        User user = userRepository.findByName(name).orElseThrow(IllegalArgumentException::new);
+//        if (user == null) {
+//            throw new IllegalArgumentException();
+//        }
+        userRepository.delete(user); // 주어진 sql 데이터 제거 기능.
+
+
+        /*
+        if (!userRepository.existsByName(name)) {
+            throw new IllegalArgumentException();
+        }
+        User user = userRepository.findByName(name);
+        userRepository.delete(user);
+         */
+    }
+
 }
