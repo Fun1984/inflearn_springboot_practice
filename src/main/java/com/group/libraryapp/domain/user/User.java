@@ -1,6 +1,10 @@
 package com.group.libraryapp.domain.user;
 
+import com.group.libraryapp.domain.user.loanhistory.UserLoanHistory;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User {
@@ -13,6 +17,9 @@ public class User {
     private String name;
 
     private Integer age; //굳이 조건이나 컬럼명이 다른 게 아니라면, @가 필요없다.
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true) //(아래의) 내가 1이고, 너가 다수이다. //(mappedBy = "user") 주인이 아닌 쪽에 설정함. 주인을 설정해줘야 데이터가 저장됨.
+    private List<UserLoanHistory> userLoanHistories = new ArrayList<>();
 
     protected User() {
 

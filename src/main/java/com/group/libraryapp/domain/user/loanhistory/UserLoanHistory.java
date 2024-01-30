@@ -1,5 +1,7 @@
 package com.group.libraryapp.domain.user.loanhistory;
 
+import com.group.libraryapp.domain.user.User;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,7 +11,9 @@ public class UserLoanHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id = null;
 
-    private long userId;
+    @JoinColumn(nullable = false)
+    @ManyToOne //(아래의) 내가 다수이고, 너가 한 개라는 의미 (N:1 관계)
+    private User user;
 
     private String bookName;
 
@@ -17,8 +21,8 @@ public class UserLoanHistory {
 
     protected UserLoanHistory() {}
 
-    public UserLoanHistory(long userId, String bookName, boolean isReturn) {
-        this.userId = userId;
+    public UserLoanHistory(User user, String bookName, boolean isReturn) {
+        this.user = user;
         this.bookName = bookName;
         this.isReturn = isReturn;
     }
