@@ -21,13 +21,17 @@ public class UserLoanHistory {
 
     protected UserLoanHistory() {}
 
-    public UserLoanHistory(User user, String bookName, boolean isReturn) {
+    public UserLoanHistory(User user, String bookName) {
         this.user = user;
         this.bookName = bookName;
-        this.isReturn = isReturn;
+        this.isReturn = true ;
     }
 
     public void doReturn() {
         this.isReturn = true;
+    }
+
+    public String getBookName() {
+        return this.bookName;
     }
 }

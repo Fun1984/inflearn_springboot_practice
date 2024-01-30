@@ -18,7 +18,7 @@ public class User {
 
     private Integer age; //굳이 조건이나 컬럼명이 다른 게 아니라면, @가 필요없다.
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true) //(아래의) 내가 1이고, 너가 다수이다. //(mappedBy = "user") 주인이 아닌 쪽에 설정함. 주인을 설정해줘야 데이터가 저장됨.
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true) //(아래의) 내가 1이고, 너가 다수이다. //(mappedBy = "user") 주인이 아닌 쪽에 설정함. 주인을 설정해줘야 데이터가 저장됨. fetch = FetchType.EAGER를 쓰면 지연로딩 없이 다 가져옴.
     private List<UserLoanHistory> userLoanHistories = new ArrayList<>();
 
     protected User() {
@@ -44,4 +44,17 @@ public class User {
     public void updateName(String name) {
         this.name = name;
     }
+
+    public void loanBook(String bookName) {
+        this.userLoanHistories.add(new UserLoanHistory(this, bookName));
+    }
+
+    public void returnBook(String bookName) {
+        UserLoanHistory targetHistory = this.userLoanHistories.stream()
+                .filter(history -> history.getBookName().equals(bookName))
+                .findFirst()
+                .orElseThrow(IllegalArgumentException::new);
+        targetHistory.doReturn();
+    }
+
 }
