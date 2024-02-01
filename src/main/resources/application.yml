@@ -1,4 +1,29 @@
 spring:
+  config:
+    activate:
+      on-profile: local #local.profile로 실행시만 적용
+  datasource:
+    url: "jdbc:h2:mem:library;MODE=MYSQL;NON_KEYWORDS=USER"
+    username: "sa"
+    password: ""
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true #h2콘솔 접속 허가
+      path : /h2-console
+--- #구분선
+spring:
+  config:
+    activate:
+      on-profile: dev #아래 옵션들을 dev.profile로 실행될 때만 적용된다.
   datasource:
     url: "jdbc:mysql://localhost:3307/library"
     username: "root"
