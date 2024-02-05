@@ -25,9 +25,10 @@ spring:
     activate:
       on-profile: dev #아래 옵션들을 dev.profile로 실행될 때만 적용된다.
   datasource:
-    url: "jdbc:mysql://localhost/library"
+#    url: "jdbc:mysql://localhost/library"
+    url: "jdbc:mysql://localhost:3307/library?rewriteBatchedStatements=true"
     username: "root"
-    password: "Abcd1234!"
+    password: "1234"
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:

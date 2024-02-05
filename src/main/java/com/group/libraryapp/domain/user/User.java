@@ -1,11 +1,15 @@
 package com.group.libraryapp.domain.user;
 
 import com.group.libraryapp.domain.user.loanhistory.UserLoanHistory;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+//import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)// 롬복 : protected User() {}의 대체
 @Entity
 public class User {
 
@@ -21,9 +25,7 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true) //(아래의) 내가 1이고, 너가 다수이다. //(mappedBy = "user") 주인이 아닌 쪽에 설정함. 주인을 설정해줘야 데이터가 저장됨. fetch = FetchType.EAGER를 쓰면 지연로딩 없이 다 가져옴.
     private List<UserLoanHistory> userLoanHistories = new ArrayList<>();
 
-    protected User() {
 
-    }
 
     public User(String name, Integer age) {
         if (name == null || name.isBlank()) {
